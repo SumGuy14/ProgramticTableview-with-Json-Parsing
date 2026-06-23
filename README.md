@@ -15,12 +15,8 @@ A simple iOS application built entirely using **UIKit** and **programmatic UI** 
 
 ## 📸 Demo
 
-> Add screenshots or a screen recording here.
+<img width="295" height="640" alt="Simulator Screen Recording - iPhone 17 Pro - 2026-06-23 at 11 07 33" src="https://github.com/user-attachments/assets/5bedd0f7-5de5-47b6-a774-361fcd00642d" />
 
-```
-Screenshot 1
-Screenshot 2
-```
 
 ---
 
