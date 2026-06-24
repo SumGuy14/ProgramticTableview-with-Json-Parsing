@@ -79,7 +79,7 @@ class ProductCell: UITableViewCell {
     
     func loadMovieData(product: Phone){
         productTitle.text = product.title
-        productImage.image = UIImage(systemName:  "gear") //movie.images ??
+        productImage.fetchDataFrom(serverUrl: product.images[0]!)
         productId.text = "\(product.id, default: "none")"
         productDescription.text = product.description
         productDescription.numberOfLines = 0

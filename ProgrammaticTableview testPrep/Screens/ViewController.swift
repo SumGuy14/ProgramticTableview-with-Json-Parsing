@@ -12,7 +12,6 @@ class ViewController: UIViewController {
         let table = UITableView()
         return table
     }()
-    
     var productList: [Phone] = []
     
     override func viewDidLoad() {
