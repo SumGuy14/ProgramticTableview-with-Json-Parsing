@@ -6,7 +6,7 @@
 //
 
 import UIKit
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension PhoneListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         productList.count
     }
