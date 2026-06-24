@@ -8,64 +8,66 @@
 import UIKit
 class ProductCell: UITableViewCell {
     
-    var movieName: UILabel = {
+    var productTitle: UILabel = {
        let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .blue
+        label.textColor = .black
         label.layer.cornerRadius = 10
         label.text = "default name"
         return label
     }()
-    var movieImage: UIImageView = {
+    var productImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(systemName: "gear")
+        image.image!.withTintColor(.black)
         return image
     }()
-    var movieRating: UILabel = {
+    var productId: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .blue
+        label.textColor = .black
         label.layer.cornerRadius = 10
         label.text = "test"
         return label
     }()
-    var movieDescription: UILabel = {
+    var productDescription: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .blue
+        label.textColor = .black
         label.layer.cornerRadius = 10
         label.text = "blah blah blah"
         return label
     }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(movieName)
-        addSubview(movieImage)
-        addSubview(movieRating)
-        addSubview(movieDescription)
+        contentView.addSubview(productTitle)
+        contentView.addSubview(productImage)
+        contentView.addSubview(productId)
+        contentView.addSubview(productDescription)
         NSLayoutConstraint.activate([
-            movieImage.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            //movieImage.centerYAnchor.constraint(equalTo: centerYAnchor),
-            movieImage.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 20),
-            movieImage.heightAnchor.constraint(equalToConstant: 70),
-            movieImage.widthAnchor.constraint(equalToConstant: 70),
+            productImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            productImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 20),
+            productImage.heightAnchor.constraint(equalToConstant: 70),
+            productImage.widthAnchor.constraint(equalToConstant: 70),
             
-            movieName.topAnchor.constraint(equalTo: topAnchor),
-            movieName.leadingAnchor.constraint(equalTo: movieImage.trailingAnchor),
-            movieName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10),
+            productTitle.topAnchor.constraint(equalTo: contentView.topAnchor),
+            productTitle.leadingAnchor.constraint(equalTo: productImage.trailingAnchor),
+            productTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10),
             
             
-            movieRating.topAnchor.constraint(equalTo: movieName.bottomAnchor),
-            movieRating.leadingAnchor.constraint(equalTo: movieImage.trailingAnchor),
-            movieRating.bottomAnchor.constraint(equalTo: movieDescription.topAnchor),
+            productId.topAnchor.constraint(equalTo: productTitle.bottomAnchor),
+            productId.leadingAnchor.constraint(equalTo: productImage.trailingAnchor),
+            productId.bottomAnchor.constraint(equalTo: productDescription.topAnchor),
             
-            movieDescription.topAnchor.constraint(equalTo: movieImage.bottomAnchor, constant: 10),
-            movieDescription.leadingAnchor.constraint(equalTo: movieImage.leadingAnchor),
-            movieDescription.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: 10)])
+            productDescription.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: 10),
+            productDescription.leadingAnchor.constraint(equalTo: productImage.leadingAnchor),
+            productDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -20),
+            productDescription.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+        ])
     }
     
     required init?(coder: NSCoder) {
@@ -75,10 +77,11 @@ class ProductCell: UITableViewCell {
     
     
     
-    func loadMovieData(movie: Phone){
-        movieName.text = movie.title
-        movieImage.image = UIImage(systemName:  "gear") //movie.images ??
-        movieRating.text = "\(movie.id, default: "none")"
-        movieDescription.text = movie.description
+    func loadMovieData(product: Phone){
+        productTitle.text = product.title
+        productImage.image = UIImage(systemName:  "gear") //movie.images ??
+        productId.text = "\(product.id, default: "none")"
+        productDescription.text = product.description
+        productDescription.numberOfLines = 0
     }
 }

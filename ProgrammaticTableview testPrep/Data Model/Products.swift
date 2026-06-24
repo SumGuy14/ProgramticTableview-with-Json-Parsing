@@ -1,18 +1,7 @@
 
-//
-//  Movie.swift
-//  ProgrammaticTableview testPrep
-//
-//  Created by Sumedh Kulkarni on 6/12/26.
-//
 import UIKit
-struct Movie{
-    let name: String?
-    let description: String?
-    let rating: Double?
-    let image: String?
-}
-struct Phones: Decodable{
+
+struct Products: Decodable{
     let products: [Phone]
 }
 
