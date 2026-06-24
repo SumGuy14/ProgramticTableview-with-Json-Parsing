@@ -15,7 +15,6 @@ class ProductCell: UITableViewCell {
         label.textColor = .blue
         label.layer.cornerRadius = 10
         label.text = "default name"
-        
         return label
     }()
     var movieImage: UIImageView = {
