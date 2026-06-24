@@ -15,7 +15,7 @@ class PhoneListVC: UIViewController {
     
     let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
-        indicator.color = .systemOrange
+        indicator.color = .black
         indicator.hidesWhenStopped = true
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
@@ -42,6 +42,8 @@ class PhoneListVC: UIViewController {
         productTable.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        activityIndicator.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        activityIndicator.heightAnchor.constraint(equalToConstant: 100).isActive = true
         productTable.separatorColor = .blue
         productTable.register(ProductCell.self, forCellReuseIdentifier: CellNames.productCell.rawValue)
     }
@@ -49,7 +51,7 @@ class PhoneListVC: UIViewController {
         activityIndicator.startAnimating()
         NetworkManager.shared.fetchDataFromUrl(url: string) { [weak self] products in
             print("fetched data method completed:\(products.count)")
-            DispatchQueue.main.async(){
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
                 self?.productList = products
                 self?.productTable.reloadData()
                 self?.activityIndicator.stopAnimating()
@@ -58,6 +60,17 @@ class PhoneListVC: UIViewController {
     }
 }
 
-
-
-
+extension PhoneListVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        productList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellNames.productCell.rawValue) as? ProductCell
+        cell?.loadMovieData(product: productList[indexPath.row])
+        return cell ?? UITableViewCell()
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("clicked")
+    }
+}
