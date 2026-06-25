@@ -6,12 +6,13 @@ protocol NetworkProtocol{
 final class NetworkManager : NetworkProtocol, Sendable{
     
     static let shared: NetworkManager = NetworkManager()
+    private init(){}
     
     func fetchDataFromUrl(url: String, completion: @escaping ([Phone]) -> Void) {
         
         guard let serverURL = URL(string: url) else {
             
-            print("URL Invalid")
+            print("URL Invalid lol")
             completion([])
             return
         }

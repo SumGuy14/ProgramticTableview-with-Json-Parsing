@@ -8,7 +8,7 @@ import UIKit
 extension UIImageView {
     func fetchDataFrom(serverUrl: String) {
         guard let serverURL = URL(string: serverUrl) else {
-            print("Server URL is invalid")
+            print("Server URL is invalid ll")
             // we need to return something
             return self.image = UIImage(systemName: "photo")
         }

@@ -8,6 +8,7 @@
 import UIKit
 
 class PhoneListVC: UIViewController {
+    var viewModel: PhoneListViewModel!
     let productTable: UITableView = {
         let table = UITableView()
         return table
@@ -21,14 +22,19 @@ class PhoneListVC: UIViewController {
         return indicator
     }()
     
-    var productList: [Phone] = []
+    //var productList: [Phone] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        productTable.dataSource = self
-        productTable.delegate = self
         setupUI()
-        getData(string: URLs.productList.rawValue)
+        //getData(string: URLs.productList.rawValue)
+        activityIndicator.startAnimating()
+        viewModel.loadData(){
+            DispatchQueue.main.async {
+                self.productTable.reloadData()
+                self.activityIndicator.stopAnimating()
+            }
+        }
     }
     func setupUI(){
         view.addSubview(productTable)
@@ -46,28 +52,30 @@ class PhoneListVC: UIViewController {
         activityIndicator.heightAnchor.constraint(equalToConstant: 100).isActive = true
         productTable.separatorColor = .blue
         productTable.register(ProductCell.self, forCellReuseIdentifier: CellNames.productCell.rawValue)
+        productTable.dataSource = self
+        productTable.delegate = self
     }
-    func getData(string: String){
-        activityIndicator.startAnimating()
-        NetworkManager.shared.fetchDataFromUrl(url: string) { [weak self] products in
-            print("fetched data method completed:\(products.count)")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
-                self?.productList = products
-                self?.productTable.reloadData()
-                self?.activityIndicator.stopAnimating()
-            }
-        }
-    }
+//    func getData(string: String){
+//        activityIndicator.startAnimating()
+//        NetworkManager.shared.fetchDataFromUrl(url: string) { [weak self] products in
+//            print("fetched data method completed:\(products.count)")
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+//                self?.productList = products
+//                self?.productTable.reloadData()
+//                self?.activityIndicator.stopAnimating()
+//            }
+//        }
+//    }
 }
 
 extension PhoneListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        productList.count
+        viewModel.getPhoneCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellNames.productCell.rawValue) as? ProductCell
-        cell?.loadMovieData(product: productList[indexPath.row])
+        cell?.loadMovieData(product: viewModel.getPhone(at: indexPath.row))
         return cell ?? UITableViewCell()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -16,7 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: PhoneListVC())
+        let phoneListVC = PhoneListVC()
+        let phoneListModel = PhoneListViewModel()
+        phoneListVC.viewModel = phoneListModel
+        
+        window?.rootViewController = UINavigationController(rootViewController: phoneListVC)
         window?.makeKeyAndVisible()
     }
 
